@@ -60,14 +60,14 @@ const processImage = async (env, request, inputImage, pipeAction) => {
 export default {
 	async fetch(request, env, context) {
 		// 读取缓存
-		const cacheUrl = new URL(request.url);
-		const cacheKey = new Request(cacheUrl.toString());
-		const cache = caches.default;
-		const hasCache = await cache.match(cacheKey);
-		if (hasCache) {
-			console.log('cache: true');
-			return hasCache;
-		}
+		// const cacheUrl = new URL(request.url);
+		// const cacheKey = new Request(cacheUrl.toString());
+		// const cache = caches.default;
+		// const hasCache = await cache.match(cacheKey);
+		// if (hasCache) {
+		// 	console.log('cache: true');
+		// 	return hasCache;
+		// }
 
 		// 入参提取与校验
 		const query = queryString.parse(new URL(request.url).search);
@@ -138,7 +138,7 @@ export default {
 			console.log('image free done');
 
 			// 写入缓存
-			context.waitUntil(cache.put(cacheKey, imageResponse.clone()));
+			// context.waitUntil(cache.put(cacheKey, imageResponse.clone()));
 			return imageResponse;
 		} catch (error) {
 			console.error('process:error', error.name, error.message, error);
