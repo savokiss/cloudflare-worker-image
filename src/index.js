@@ -32,6 +32,10 @@ const inWhiteList = (env, url) => {
 const processImage = async (env, request, inputImage, pipeAction) => {
 	const [action, options = ''] = pipeAction.split('!');
 	const params = options.split(',');
+
+	// 获取图片宽度
+	const width = inputImage.get_width();
+
 	if (multipleImageMode.includes(action)) {
 		const image2 = params.shift(); // 是否需要 decodeURIComponent ?
 		if (image2 && inWhiteList(env, image2)) {
@@ -44,6 +48,11 @@ const processImage = async (env, request, inputImage, pipeAction) => {
 			}
 		}
 	} else {
+		if (action === 'crop') {
+			// 使用获取到的宽度进行裁剪
+			const [x, y, , height] = params;
+			return photon[action](inputImage, parseInt(x), parseInt(y), width, parseInt(height));
+		}
 		return photon[action](inputImage, ...params);
 	}
 };
