@@ -78,7 +78,7 @@ export default {
 			return new Response(null, {
 				status: 302,
 				headers: {
-					location: 'https://github.com/ccbikai/cloudflare-worker-image',
+					location: 'https://github.com/savokiss/cloudflare-worker-image',
 				},
 			});
 		}
